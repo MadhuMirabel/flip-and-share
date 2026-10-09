@@ -1,0 +1,242 @@
+@import "tailwindcss";
+
+/* Design tokens: Ocean palette (see README "Design tokens") */
+@theme {
+  --color-ink-950: #0b1f2e;
+  --color-navy-900: #0f2f45;
+  --color-navy-800: #0c4a6e;
+  --color-navy-700: #075985;
+  --color-blue-700: #0369a1;
+  --color-blue-600: #0284c7;
+  --color-blue-500: #0ea5e9;
+  --color-blue-400: #38bdf8;
+  --color-blue-300: #7dd3fc;
+  --color-blue-200: #bae6fd;
+  --color-blue-100: #e0f2fe;
+  --color-blue-50: #f0f9ff;
+
+  --color-amber-500: #f59e0b;
+  --color-amber-700: #b45309;
+  --color-amber-100: #fef3c7;
+  --color-violet-500: #8b5cf6;
+  --color-violet-700: #6d28d9;
+  --color-violet-100: #ede9fe;
+  --color-green-600: #16a34a;
+  --color-green-800: #166534;
+  --color-green-100: #dcfce7;
+  --color-teal-500: #14b8a6;
+  --color-pink-500: #ec4899;
+  --color-red-600: #dc2626;
+
+  --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", "Helvetica Neue", sans-serif;
+  --font-mono: ui-monospace, Menlo, monospace;
+
+  --shadow-card-hover: 0 18px 36px -24px rgba(12, 74, 110, 0.45);
+  --shadow-float: 0 20px 40px -22px rgba(12, 74, 110, 0.45);
+  --shadow-form: 0 30px 60px -36px rgba(12, 74, 110, 0.45);
+  --shadow-mega: 0 24px 40px -20px rgba(12, 74, 110, 0.28);
+  --shadow-cover: 0 14px 30px -16px rgba(12, 74, 110, 0.5);
+  --shadow-modal: 0 40px 80px -30px rgba(0, 0, 0, 0.6);
+
+  --ease-fas: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: #fff;
+  color: #111827;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--color-blue-600);
+  text-decoration: none;
+}
+a:hover {
+  color: var(--color-blue-700);
+}
+button,
+input,
+textarea,
+select {
+  font-family: inherit;
+}
+
+/* Visible keyboard focus everywhere (README accessibility list) */
+:focus-visible {
+  outline: 2px solid var(--color-blue-500);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ---------- Shared keyframes (prototype: fas*) ---------- */
+@keyframes fasFade {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes fasUp {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 8px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+@keyframes fasCkUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+@keyframes fasSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes fasDrift {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(6%, -5%) scale(1.08);
+  }
+  66% {
+    transform: translate(-4%, 4%) scale(0.96);
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+}
+@keyframes fasDrift2 {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  40% {
+    transform: translate(-7%, 6%) scale(1.1);
+  }
+  75% {
+    transform: translate(4%, -3%) scale(0.94);
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+/* ---------- Header ---------- */
+.fas-drop {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  padding-top: 10px;
+  z-index: 30;
+}
+.fas-nav-item:hover > .fas-drop,
+.fas-nav-item[data-open="true"] > .fas-drop {
+  display: block;
+}
+.fas-pricelink:hover .fas-pricearrow {
+  transform: translateX(4px);
+}
+.fas-pricelink:hover .fas-pricetext {
+  transform: translateX(6px);
+}
+
+@media (max-width: 1040px) {
+  [data-nav],
+  [data-hdr-login],
+  [data-hdr-cta] {
+    display: none !important;
+  }
+  [data-burger] {
+    display: flex !important;
+  }
+  [data-hdr] {
+    padding: 12px 20px !important;
+    gap: 12px !important;
+    flex-wrap: nowrap !important;
+  }
+}
+@media (max-width: 900px) {
+  [data-hdr-acct] {
+    display: none !important;
+  }
+}
+@media (max-width: 1000px) {
+  [data-ucmenu] {
+    grid-template-columns: 1fr 1fr !important;
+  }
+  [data-ucside] {
+    grid-column: 1 / -1;
+    flex-direction: row !important;
+    flex-wrap: wrap;
+    border-left: 0 !important;
+    padding-left: 0 !important;
+    border-top: 1px solid #f1f5f9;
+    padding-top: 8px;
+  }
+  [data-ucside] > span {
+    flex-basis: 100%;
+  }
+  [data-ucside] > a {
+    flex: 1;
+    min-width: 200px;
+  }
+}
+@media (max-width: 1100px) {
+  [data-uccol] {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+}
+
+/* ---------- Footer ---------- */
+@media (max-width: 980px) {
+  [data-footcols] {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+  [data-foottop] {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+  [data-foottop] > div:last-child {
+    justify-content: flex-start !important;
+  }
+}
+@media (max-width: 600px) {
+  [data-footcols] {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 28px 20px !important;
+  }
+  [data-footcols] > nav:first-child {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Reduced motion: honour everywhere, not only the demo hero (README) */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
