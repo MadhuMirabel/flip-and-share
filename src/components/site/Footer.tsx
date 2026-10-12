@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Icon } from "@/components/icons";
 import { NewsletterForm } from "@/components/site/NewsletterForm";
+import { Eyebrow } from "@/components/ui/Eyebrow";
 import { FOOTER_COLUMNS, FOOTER_PRODUCTS } from "@/lib/nav";
 import { SITE } from "@/lib/site";
 
@@ -29,7 +30,7 @@ export function Footer() {
     <footer
       itemScope
       itemType="https://schema.org/Organization"
-      className="relative overflow-hidden bg-ink-950 px-8 pb-7 pt-16 text-[#cbd5e1]"
+      className="relative overflow-hidden bg-ink-950 px-8 pb-7 pt-16 text-slate-300 max-sm:px-5"
     >
       <meta itemProp="name" content="FlipAndShare by Mirabel Technologies" />
       <meta itemProp="telephone" content={SITE.phone} />
@@ -38,7 +39,7 @@ export function Footer() {
         aria-hidden="true"
         className="pointer-events-none absolute -right-40 -top-40 h-[480px] w-[480px] rounded-full bg-[radial-gradient(circle,rgba(14,165,233,.18),transparent_70%)]"
       />
-      <div className="relative mx-auto flex max-w-[1200px] flex-col gap-11">
+      <div className="relative mx-auto flex max-w-page flex-col gap-11">
         <div
           data-foottop
           className="grid grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] items-center gap-10 border-b border-white/10 pb-9"
@@ -51,7 +52,7 @@ export function Footer() {
               height={30}
               className="block h-[30px] w-auto brightness-0 invert"
             />
-            <p itemProp="description" className="m-0 max-w-[560px] text-[14.5px] leading-[1.65] text-[#94a3b8]">
+            <p itemProp="description" className="m-0 max-w-[560px] text-body-sm text-slate-400">
               FlipAndShare turns PDF magazines, catalogs and brochures into interactive, SEO-ready digital editions.
               Add <Link href="/features/links" className={inlineLink}>video, links</Link>,{" "}
               <Link href="/features/forms" className={inlineLink}>lead forms</Link>,{" "}
@@ -66,7 +67,9 @@ export function Footer() {
 
         <div data-footcols className="grid grid-cols-[1.25fr_repeat(4,minmax(0,1fr))] gap-8">
           <nav aria-label="Mirabel products" className="flex min-w-0 flex-col gap-2.5">
-            <h2 className="m-0 mb-1 font-mono text-[11.5px] font-bold tracking-[.1em] text-blue-300">PRODUCTS</h2>
+            <Eyebrow as="h2" size="md" tone="dark" className="mb-1">
+              Products
+            </Eyebrow>
             <ul className="m-0 flex list-none flex-col gap-[11px] p-0">
               {FOOTER_PRODUCTS.map((p) => (
                 <li key={p.label}>
@@ -76,7 +79,7 @@ export function Footer() {
                     className="flex flex-col gap-px hover:opacity-85"
                   >
                     <span className="text-sm font-semibold text-white">{p.label}</span>
-                    <span className="text-xs leading-[1.35] text-[#94a3b8]">{p.desc}</span>
+                    <span className="text-xs leading-[1.35] text-slate-400">{p.desc}</span>
                   </Link>
                 </li>
               ))}
@@ -84,11 +87,13 @@ export function Footer() {
           </nav>
           {FOOTER_COLUMNS.map((col) => (
             <nav key={col.title} aria-label={col.aria} className="flex min-w-0 flex-col gap-2.5">
-              <h2 className="m-0 mb-1 font-mono text-[11.5px] font-bold tracking-[.1em] text-blue-300">{col.title}</h2>
+              <Eyebrow as="h2" size="md" tone="dark" className="mb-1">
+                {col.title}
+              </Eyebrow>
               <ul className="m-0 flex list-none flex-col gap-[9px] p-0">
                 {col.links.map((l) => (
                   <li key={l.label}>
-                    <Link href={l.href} className="text-sm text-[#cbd5e1] transition-colors duration-150 hover:text-white">
+                    <Link href={l.href} className="text-sm text-slate-300 transition-colors duration-150 hover:text-white">
                       {l.label}
                     </Link>
                   </li>
@@ -100,7 +105,7 @@ export function Footer() {
 
         <div
           data-foottop
-          className="grid grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] items-center gap-6 rounded-[14px] border border-white/[.08] bg-white/[.04] px-6 py-[22px]"
+          className="grid grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] items-center gap-6 rounded-lg border border-white/[.08] bg-white/[.04] px-6 py-[22px]"
         >
           <address itemProp="address" className="flex flex-wrap items-center gap-[22px] text-sm not-italic">
             <span className="font-semibold text-white">Talk to us</span>
@@ -119,7 +124,7 @@ export function Footer() {
                 key={s.label}
                 href="/company"
                 aria-label={`FlipAndShare on ${s.label}`}
-                className="flex h-9 w-9 items-center justify-center rounded-[9px] border border-white/[.14] text-[#cbd5e1] transition-all duration-150 hover:bg-white/[.08] hover:text-white"
+                className="flex h-9 w-9 items-center justify-center rounded-md border border-white/[.14] text-slate-300 transition-all duration-150 hover:bg-white/[.08] hover:text-white"
               >
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                   <path d={s.d} />
@@ -129,14 +134,14 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="flex flex-wrap justify-between gap-4 pt-1 text-[12.5px] text-[#94a3b8]">
+        <div className="flex flex-wrap justify-between gap-4 pt-1 text-small text-slate-400">
           <span>© 2026 Mirabel Technologies, Inc. FlipAndShare is a product of Mirabel Technologies.</span>
           <nav aria-label="Legal" className="flex flex-wrap gap-[18px]">
-            <Link href="/company" className="text-[#94a3b8] hover:text-white">Privacy policy</Link>
-            <Link href="/company" className="text-[#94a3b8] hover:text-white">Terms of service</Link>
-            <Link href="/company" className="text-[#94a3b8] hover:text-white">Cookie settings</Link>
-            <Link href="/resources" className="text-[#94a3b8] hover:text-white">Accessibility</Link>
-            <Link href="/resources" className="text-[#94a3b8] hover:text-white">Sitemap</Link>
+            <Link href="/company" className="text-slate-400 hover:text-white">Privacy policy</Link>
+            <Link href="/company" className="text-slate-400 hover:text-white">Terms of service</Link>
+            <Link href="/company" className="text-slate-400 hover:text-white">Cookie settings</Link>
+            <Link href="/resources" className="text-slate-400 hover:text-white">Accessibility</Link>
+            <Link href="/resources" className="text-slate-400 hover:text-white">Sitemap</Link>
           </nav>
         </div>
       </div>

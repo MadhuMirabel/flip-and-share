@@ -1,11 +1,12 @@
 "use client";
 
-import { useId, useState, type FormEvent } from "react";
+import { useState, type FormEvent } from "react";
+import { Button } from "@/components/ui/Button";
+import { Field } from "@/components/ui/Field";
 
 const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
 
 export function NewsletterForm() {
-  const id = useId();
   const [email, setEmail] = useState("");
   const [err, setErr] = useState("");
   const [done, setDone] = useState(false);
@@ -21,41 +22,34 @@ export function NewsletterForm() {
     setDone(true);
   };
 
-  return (
-    <form onSubmit={submit} noValidate className="flex flex-col gap-2">
-      <label htmlFor={id} className="text-sm font-semibold text-white">
-        Get publishing tips once a month
-      </label>
-      {done ? (
-        <span role="status" className="text-sm font-semibold text-[#86efac]">
+  if (done) {
+    return (
+      <div className="flex flex-col gap-2">
+        <span className="text-sm font-semibold text-white">Get publishing tips once a month</span>
+        <span role="status" className="text-sm font-semibold text-green-300">
           ✓ You&apos;re subscribed.
         </span>
-      ) : (
-        <>
-          <div className="flex flex-wrap gap-2">
-            <input
-              id={id}
-              type="email"
-              autoComplete="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="you@publisher.com"
-              aria-invalid={!!err || undefined}
-              aria-describedby={err ? `${id}-err` : undefined}
-              className="min-w-[180px] flex-1 rounded-lg border border-white/[.18] bg-white/[.06] px-[13px] py-[11px] text-sm text-white outline-none placeholder:text-[#94a3b8] focus:border-blue-400"
-            />
-            <button
-              type="submit"
-              className="cursor-pointer rounded-lg border-0 bg-blue-500 px-4 py-[11px] text-sm font-semibold text-white hover:bg-blue-600"
-            >
-              Subscribe
-            </button>
-          </div>
-          <span id={`${id}-err`} className="min-h-3.5 text-xs text-[#f87171]">
-            {err}
-          </span>
-        </>
-      )}
+      </div>
+    );
+  }
+
+  return (
+    <form onSubmit={submit} noValidate>
+      <Field
+        tone="dark"
+        label="Get publishing tips once a month"
+        type="email"
+        autoComplete="email"
+        placeholder="you@publisher.com"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        error={err}
+        action={
+          <Button type="submit" radius="md">
+            Subscribe
+          </Button>
+        }
+      />
     </form>
   );
 }

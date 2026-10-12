@@ -33,7 +33,16 @@ export function useSession() {
 
 /* ---------- Toast ---------- */
 
-const ToastContext = createContext<(message: string) => void>(() => {});
+export type ToastTone = "info" | "success" | "error";
+type Toast = { message: string; tone: ToastTone };
+
+const TOAST_TONE: Record<ToastTone, string> = {
+  info: "bg-navy-800 text-white",
+  success: "bg-green-800 text-white",
+  error: "bg-red-600 text-white",
+};
+
+const ToastContext = createContext<(message: string, tone?: ToastTone) => void>(() => {});
 
 export function useToast() {
   return useContext(ToastContext);
@@ -41,7 +50,7 @@ export function useToast() {
 
 export function Providers({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
-  const [toast, setToast] = useState<string | null>(null);
+  const [toast, setToast] = useState<Toast | null>(null);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
@@ -66,8 +75,8 @@ export function Providers({ children }: { children: ReactNode }) {
     } catch {}
   }, []);
 
-  const showToast = useCallback((message: string) => {
-    setToast(message);
+  const showToast = useCallback((message: string, tone: ToastTone = "info") => {
+    setToast({ message, tone });
     if (timer.current) clearTimeout(timer.current);
     timer.current = setTimeout(() => setToast(null), 2600);
   }, []);
@@ -82,15 +91,15 @@ export function Providers({ children }: { children: ReactNode }) {
       <ToastContext.Provider value={showToast}>
         {children}
         <div aria-live="polite" role="status" className="sr-only">
-          {toast}
+          {toast?.message}
         </div>
         {toast && (
           <div
             aria-hidden="true"
-            className="fixed bottom-7 left-1/2 z-[60] rounded-lg bg-navy-800 px-[18px] py-3 text-sm font-medium text-white shadow-[0_12px_30px_-10px_rgba(0,0,0,.4)]"
+            className={`fixed bottom-7 left-1/2 z-[60] rounded-md px-[18px] py-3 text-sm font-medium shadow-toast ${TOAST_TONE[toast.tone]}`}
             style={{ animation: "fasUp .2s ease-out both" }}
           >
-            {toast}
+            {toast.message}
           </div>
         )}
       </ToastContext.Provider>
