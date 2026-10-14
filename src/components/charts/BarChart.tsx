@@ -48,7 +48,7 @@ type BarChartProps = {
   className?: string;
 };
 
-const GROW = "fasGrowY .9s cubic-bezier(.2,.8,.2,1) both";
+const GROW = "fasGrowY 1s cubic-bezier(.22,1,.36,1) both";
 
 /** Hand-rolled column chart (flex bars, fasGrowY entrance, native title tooltips). */
 export function BarChart({
@@ -77,7 +77,7 @@ export function BarChart({
   const corner = `${radius}px ${radius}px 0 0`;
   const pct = (v: number) => `${Math.max(0, Math.min(100, (v / top) * 100))}%`;
   const anim = (i: number, extra?: CSSProperties): CSSProperties => ({
-    animation: variant === "stacked" ? "fasGrowY 1s cubic-bezier(.2,.8,.2,1) both" : GROW,
+    animation: variant === "stacked" ? "fasGrowY 1.1s cubic-bezier(.22,1,.36,1) both" : GROW,
     animationDelay: `${i * stagger}s`,
     transformOrigin: "bottom",
     ...extra,

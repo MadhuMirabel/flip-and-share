@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ConsentScripts } from "@/components/site/ConsentScripts";
 import { CookieBanner } from "@/components/site/CookieBanner";
 import { Providers } from "@/components/site/Providers";
 import "./globals.css";
@@ -25,6 +26,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Providers>
           {children}
           <CookieBanner />
+          <ConsentScripts />
         </Providers>
       </body>
     </html>

@@ -57,7 +57,7 @@ export function ProgressBar({
         ? "var(--color-amber-500)"
         : "var(--color-blue-500)"
     : color;
-  const ease = "cubic-bezier(.2,.8,.2,1)";
+  const ease = "cubic-bezier(.22,1,.36,1)";
   const motion =
     animate === "grow"
       ? { animation: `fasGrowX ${duration ?? 1}s ${ease} ${delay}s both` }
@@ -78,7 +78,7 @@ export function ProgressBar({
       };
   return (
     <div {...a11y} className={`w-full overflow-hidden ${TRACK[tone]} ${className}`} style={{ height, borderRadius: height / 2 }}>
-      <div className="h-full origin-left rounded-[inherit]" style={{ width: `${pct}%`, background: fill, ...motion }} />
+      <div className="fas-motion h-full origin-left rounded-[inherit]" style={{ width: `${pct}%`, background: fill, ...motion }} />
     </div>
   );
 }
@@ -212,7 +212,7 @@ export function StackedBar({
             style={{
               width: `${(s.value / total) * 100}%`,
               background: s.color,
-              animation: animate ? `fasGrowX 1s cubic-bezier(.2,.8,.2,1) ${i * 0.15}s both` : undefined,
+              animation: animate ? `fasGrowX 1.1s cubic-bezier(.22,1,.36,1) ${i * 0.15}s both` : undefined,
             }}
           />
         ))}

@@ -6,6 +6,5 @@ export const SITE = {
   email: "info@mirabeltechnologies.com",
   emailHref: "mailto:info@mirabeltechnologies.com",
   storeBase: "https://www.mirabelsmagazinecentral.com/Publication/Category",
-  cookieKey: "fas_cookie_consent",
   sessionKey: "fas_session",
 } as const;

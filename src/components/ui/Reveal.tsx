@@ -89,7 +89,7 @@ export function Reveal({
   const motion: CSSProperties = {
     opacity: shown ? 1 : 0,
     transform: shown ? "none" : `translateY(${distance}px)`,
-    transition: `opacity ${duration}s ease, transform ${duration}s ease`,
+    transition: `opacity ${duration}s ease-out, transform ${duration}s cubic-bezier(.22,1,.36,1)`,
     transitionDelay: `${delay}s`,
   };
 

@@ -6,7 +6,9 @@ const nextConfig: NextConfig = {
   partialPrefetching: true,
   turbopack: {
     rules: {
-      "*.css": {
+      // Only the global stylesheet goes through Tailwind. A "*.css" rule also caught *.module.css files,
+      // which turned CSS modules into plain global CSS (their imported class names came back undefined).
+      "globals.css": {
         loaders: ["@tailwindcss/turbopack"],
         as: "*.css",
       },

@@ -21,18 +21,17 @@ export const SCENE_AVATAR_COLORS = [
   "var(--color-pink-500)",
 ] as const;
 
-const EASE = "cubic-bezier(.2,.8,.2,1)";
 
-/** `rise(d)`: card rises in, holds, fades up (fasSCard). */
+/** `rise(d)`: card rises in, holds, fades up (fasMCard). */
 export function rise(delay = 0): CSSProperties {
-  return { animation: `fasSCard ${SCENE_PERIOD}s ease-out ${delay}s infinite` };
+  return { animation: `fasMCard ${SCENE_PERIOD}s linear ${delay}s infinite backwards` };
 }
-/** `pop(d)`: scale pop in / out (fasSPop). */
+/** `pop(d)`: scale pop in / out (fasMPop). */
 export function pop(delay = 0): CSSProperties {
-  return { animation: `fasSPop ${SCENE_PERIOD}s ease-out ${delay}s infinite` };
+  return { animation: `fasMPop ${SCENE_PERIOD}s linear ${delay}s infinite backwards` };
 }
-/** `flt`: gentle 6s idle float (fasSFloat). */
-export const float: CSSProperties = { animation: "fasSFloat 6s ease-in-out infinite" };
+/** `flt`: gentle 6s idle float (fasMFloat). */
+export const float: CSSProperties = { animation: "fasMFloat 6s linear infinite" };
 
 /** Absolute placement in % (or px) of the 4:3 stage. */
 export type ScenePos = {
@@ -88,9 +87,9 @@ export function SceneStage({ backdrop = "glow", height = 340, label, className =
 /* ------------------------------------------------------------------ */
 
 export type SceneCardProps = ScenePos & {
-  /** Rise-in delay in seconds (fasSCard on the 7s loop). */
+  /** Rise-in delay in seconds (fasMCard on the 7s loop). */
   rise?: number;
-  /** Idle float instead of a rise (fasSFloat 6s). Ignored when `rise` is set. */
+  /** Idle float instead of a rise (fasMFloat 6s). Ignored when `rise` is set. */
   float?: boolean;
   className?: string;
   style?: CSSProperties;
@@ -102,7 +101,7 @@ export function SceneCard({ left, top, right, bottom, width, height, rise: d, fl
   const anim = d !== undefined ? rise(d) : f ? float : undefined;
   return (
     <div
-      className={`absolute rounded-lg border border-gray-200 bg-white shadow-float ${className}`}
+      className={`fas-motion absolute rounded-lg border border-gray-200 bg-white shadow-float ${className}`}
       style={{ left, top, right, bottom, width, height, ...anim, ...style }}
     >
       {children}
@@ -116,7 +115,7 @@ export function SceneCard({ left, top, right, bottom, width, height, rise: d, fl
 
 export type SceneCoverProps = ScenePos & {
   src?: string;
-  /** Fly in from an offset: x / y (CSS lengths), r (rotation), delay (s). Uses fasSFly with --fx/--fy/--fr. */
+  /** Fly in from an offset: x / y (CSS lengths), r (rotation), delay (s). Uses fasMFly with --fx/--fy/--fr. */
   fly?: { x: string; y: string; r: string; delay: number };
   /** Idle float instead of a fly-in. */
   float?: boolean;
@@ -144,13 +143,13 @@ export function SceneCover({ src, fly, float: f, radius = 6, shadow = "sm", left
     s["--fx"] = fly.x;
     s["--fy"] = fly.y;
     s["--fr"] = fly.r;
-    s.animation = `fasSFly ${SCENE_PERIOD}s ${EASE} ${fly.delay}s infinite`;
+    s.animation = `fasMFly ${SCENE_PERIOD}s linear ${fly.delay}s infinite backwards`;
   } else if (f) {
     Object.assign(s, float);
   }
   return (
     <div
-      className={`absolute aspect-[3/4] ${shadow === "sm" ? "shadow-[0_16px_28px_-14px_rgba(0,0,0,0.5)]" : "shadow-[0_30px_50px_-22px_rgba(0,0,0,0.55)]"} ${className}`}
+      className={`fas-motion absolute aspect-[3/4] ${shadow === "sm" ? "shadow-[0_16px_28px_-14px_rgba(0,0,0,0.5)]" : "shadow-[0_30px_50px_-22px_rgba(0,0,0,0.55)]"} ${className}`}
       style={{ ...s, ...style }}
     >
       {children}
@@ -174,7 +173,7 @@ export function SceneAvatar({
 }: { initials: string; color?: string; delay?: number } & Omit<ScenePos, "width" | "height">) {
   return (
     <span
-      className="absolute flex h-[30px] w-[30px] items-center justify-center rounded-full border-2 border-white text-[10px] font-bold text-white shadow-[0_6px_14px_-6px_rgba(0,0,0,0.4)]"
+      className="fas-motion absolute flex h-[30px] w-[30px] items-center justify-center rounded-full border-2 border-white text-[10px] font-bold text-white shadow-[0_6px_14px_-6px_rgba(0,0,0,0.4)]"
       style={{ left, top, right, bottom, background: color, ...pop(delay) }}
     >
       {initials}
@@ -182,7 +181,7 @@ export function SceneAvatar({
   );
 }
 
-/** Black arrow cursor that travels by (`to[0]`, `to[1]`), clicks and returns (fasSCursor). */
+/** Black arrow cursor that travels by (`to[0]`, `to[1]`), clicks and returns (fasMCursor). */
 export function SceneCursor({
   to,
   delay = 0,
@@ -198,11 +197,11 @@ export function SceneCursor({
     bottom,
     "--cx": to[0],
     "--cy": to[1],
-    animation: `fasSCursor ${SCENE_PERIOD}s ease-in-out ${delay}s infinite`,
+    animation: `fasMCursor ${SCENE_PERIOD}s linear ${delay}s infinite backwards`,
     filter: "drop-shadow(0 2px 3px rgba(0,0,0,.35))",
   };
   return (
-    <svg width={18} height={22} viewBox="0 0 18 22" className="absolute z-[5]" style={s}>
+    <svg width={18} height={22} viewBox="0 0 18 22" className="fas-motion absolute z-[5]" style={s}>
       <path d="M1 1l6 18 3-7 7-3z" fill="var(--color-gray-900)" stroke="var(--color-white)" strokeWidth={1.5} />
     </svg>
   );
@@ -216,7 +215,7 @@ const PILL = {
 
 /**
  * Outcome pill at the end of the loop ("Page 6 placed"). `center` centres it on `left`
- * with an outer wrapper, because fasSCard animates transform and would cancel a translateX(-50%).
+ * with an outer wrapper, because fasMCard animates transform and would cancel a translateX(-50%).
  */
 export function ScenePill({
   children,
@@ -230,7 +229,7 @@ export function ScenePill({
 }: { children: ReactNode; tone?: keyof typeof PILL; delay?: number; center?: boolean } & Omit<ScenePos, "width" | "height">) {
   const pill = (
     <span
-      className={`block rounded-full px-[9px] py-1 text-2xs leading-tight font-bold whitespace-nowrap shadow-[0_8px_16px_-8px_rgba(0,0,0,0.35)] ${PILL[tone]}`}
+      className={`fas-motion block rounded-full px-[9px] py-1 text-2xs leading-tight font-bold whitespace-nowrap shadow-[0_8px_16px_-8px_rgba(0,0,0,0.35)] ${PILL[tone]}`}
       style={rise(delay)}
     >
       {children}
@@ -261,22 +260,22 @@ export function SceneLabel({ children, className = "text-gray-500", style }: { c
   );
 }
 
-/** 38×20 switch that turns on during the loop (fasSTrack + fasSKnob). */
+/** 38×20 switch that turns on during the loop (fasMTrack + fasMKnob). */
 export function SceneToggle({ delay = 0 }: { delay?: number }) {
   return (
     <span
-      className="relative h-5 w-[38px] flex-none rounded-full"
-      style={{ animation: `fasSTrack ${SCENE_PERIOD}s ease-out ${delay}s infinite` }}
+      className="fas-motion relative h-5 w-[38px] flex-none rounded-full bg-gray-300"
+      style={{ animation: `fasMTrack ${SCENE_PERIOD}s linear ${delay}s infinite backwards` }}
     >
       <span
-        className="absolute top-0.5 h-4 w-4 rounded-full bg-white shadow-[0_1px_3px_rgba(0,0,0,0.3)]"
-        style={{ animation: `fasSKnob ${SCENE_PERIOD}s ${EASE} ${delay}s infinite` }}
+        className="fas-motion absolute left-0.5 top-0.5 h-4 w-4 rounded-full bg-white shadow-[0_1px_3px_rgba(0,0,0,0.3)]"
+        style={{ animation: `fasMKnob ${SCENE_PERIOD}s linear ${delay}s infinite backwards` }}
       />
     </span>
   );
 }
 
-/** Column chart whose bars grow on the loop (fasSGrow). Values are % heights. */
+/** Column chart whose bars grow on the loop (fasMGrow). Values are % heights. */
 export function SceneBars({
   values,
   highlight = [],
@@ -298,8 +297,8 @@ export function SceneBars({
       {values.map((h, n) => (
         <span
           key={n}
-          className={`block origin-bottom rounded-t-sm ${highlight.includes(n) ? "bg-blue-500" : "bg-blue-200"}`}
-          style={{ height: `${h}%`, animation: `fasSGrow ${SCENE_PERIOD}s ${EASE} ${delay + n * step}s infinite` }}
+          className={`fas-motion block origin-bottom rounded-t-sm ${highlight.includes(n) ? "bg-blue-500" : "bg-blue-200"}`}
+          style={{ height: `${h}%`, animation: `fasMGrow ${SCENE_PERIOD}s linear ${delay + n * step}s infinite backwards` }}
         />
       ))}
     </div>

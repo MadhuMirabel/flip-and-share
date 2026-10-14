@@ -365,7 +365,7 @@ Everything below has a live example on `/design-system`. Props are typed and doc
 | CopyField.tsx | `CopyField` | Clipboard with toast and fallbacks |
 | ChipGroup.tsx | `ChipGroup`, `ChipList` | Single-select (radiogroup, arrow keys) or multi-select; navy/primary/choice/violet/dark/darkGlass |
 | SegmentedControl.tsx | `SegmentedControl` | gray / white / dark / mini; radio or tab semantics |
-| BillingToggle.tsx | `BillingToggle` | Springy Monthly/Annual pill with "Save 20%" |
+| BillingToggle.tsx | `BillingToggle` | Springy Annual/Monthly pill (Annual first, green thumb) with "Save 20%" |
 | RadioCardGroup.tsx | `RadioCardGroup` | Radio cards or icon option cards, blue or green accent |
 | Toggle.tsx | `Toggle`, `SwitchTrack`, `ToggleRow`, `ToggleCard`, `SettingRow`, `ToggleButton` | sm/md/lg, blue/green, locked |
 | PasswordStrength.tsx | `PasswordStrength`, `scorePassword` | 4-segment meter |

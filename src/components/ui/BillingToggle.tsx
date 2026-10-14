@@ -16,7 +16,7 @@ type BillingToggleProps = {
   className?: string;
 };
 
-const CYCLES: BillingCycle[] = ["monthly", "annual"];
+const CYCLES: BillingCycle[] = ["annual", "monthly"];
 
 /** Pricing Monthly/Annual pill on dark: springy sliding thumb, blue on Monthly and green on Annual. */
 export function BillingToggle({
@@ -42,8 +42,8 @@ export function BillingToggle({
           aria-hidden="true"
           className={`absolute top-[3px] bottom-[3px] left-[3px] w-[calc(50%-3px)] rounded-full ${
             annual
-              ? "translate-x-full bg-green-600 shadow-[0_4px_12px_-4px_var(--color-green-600)]"
-              : "translate-x-0 bg-blue-500 shadow-[0_4px_12px_-4px_var(--color-blue-500)]"
+              ? "translate-x-0 bg-green-600 shadow-[0_4px_12px_-4px_var(--color-green-600)]"
+              : "translate-x-full bg-blue-500 shadow-[0_4px_12px_-4px_var(--color-blue-500)]"
           }`}
           style={{ transition: "transform .35s cubic-bezier(.34,1.3,.5,1), background .35s ease, box-shadow .35s ease" }}
         />

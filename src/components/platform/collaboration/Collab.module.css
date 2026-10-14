@@ -1,0 +1,90 @@
+/* Smoother entrances for the collaboration page: transform/opacity only, ease-out-expo or soft spring. */
+
+.avatar {
+  animation: avatarIn 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes avatarIn {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 10px, 0) scale(0.6);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Uses the standalone `scale` property so the pin keeps its inline rotate + translate. */
+.pin {
+  animation: pinIn 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes pinIn {
+  from {
+    opacity: 0;
+    scale: 0.4;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+.thread {
+  animation: threadIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes threadIn {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 10px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.veil {
+  animation: veilIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes veilIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.stamp {
+  animation: stampIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+}
+
+@keyframes stampIn {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 10px, 0) scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.row {
+  animation: rowIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes rowIn {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 8px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}

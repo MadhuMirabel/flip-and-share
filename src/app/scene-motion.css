@@ -1,0 +1,231 @@
+/*
+ * Smoother loops for the product scenes (fasM* = "motion").
+ *
+ * The prototype's fasS* keyframes (keyframes.css, kept verbatim) reuse one timing function for every
+ * segment and animate layout properties (left, top, background), so loops feel stop-start and pop on restart.
+ * These versions:
+ *  - set a per-segment easing (spring-like entrances, ease-in-out exits),
+ *  - animate only transform and opacity (GPU-composited),
+ *  - always fade out before the loop restarts, so nothing snaps back,
+ *  - use the same 7s period and the same delay arguments, so scenes compose exactly as before.
+ *
+ * Easings: --ease-out-expo = cubic-bezier(.22,1,.36,1) · --ease-spring = cubic-bezier(.34,1.56,.64,1)
+ *          --ease-inout   = cubic-bezier(.45,0,.25,1)
+ */
+
+/* Card / pill rises in, holds, lifts away. */
+@keyframes fasMCard {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0) scale(0.985);
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  11%,
+  84% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    animation-timing-function: cubic-bezier(0.45, 0, 0.25, 1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(0, -8px, 0) scale(0.99);
+  }
+}
+
+/* Marker / avatar pops in with a soft overshoot. */
+@keyframes fasMPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+    animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  4% {
+    opacity: 1;
+  }
+  12%,
+  84% {
+    opacity: 1;
+    transform: scale(1);
+    animation-timing-function: cubic-bezier(0.45, 0, 0.25, 1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.88);
+  }
+}
+
+/* Cover flies in from --fx/--fy/--fr, settles, then lifts away. Opacity arrives faster than the move. */
+@keyframes fasMFly {
+  0% {
+    opacity: 0;
+    transform: translate3d(var(--fx), var(--fy), 0) scale(0.72) rotate(var(--fr));
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  6% {
+    opacity: 1;
+  }
+  18%,
+  84% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+    animation-timing-function: cubic-bezier(0.45, 0, 0.25, 1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(0, -6px, 0) scale(0.99) rotate(0deg);
+  }
+}
+
+/* Cursor glides to (--cx, --cy), presses, glides home, and fades at both ends. */
+@keyframes fasMCursor {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0) scale(1);
+    animation-timing-function: ease-out;
+  }
+  6% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+    animation-timing-function: cubic-bezier(0.45, 0, 0.25, 1);
+  }
+  34% {
+    transform: translate3d(var(--cx), var(--cy), 0) scale(1);
+    animation-timing-function: ease-in;
+  }
+  38% {
+    transform: translate3d(var(--cx), var(--cy), 0) scale(0.84);
+    animation-timing-function: ease-out;
+  }
+  43%,
+  68% {
+    transform: translate3d(var(--cx), var(--cy), 0) scale(1);
+    animation-timing-function: cubic-bezier(0.45, 0, 0.25, 1);
+  }
+  90% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  98%,
+  100% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+/* Idle float: a true sine-like bob (no hard turn-around). */
+@keyframes fasMFloat {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+    animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1);
+  }
+  50% {
+    transform: translate3d(0, -6px, 0);
+    animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1);
+  }
+}
+
+/* Chart bars grow with an ease-out and shrink away gently. */
+@keyframes fasMGrow {
+  0% {
+    transform: scaleY(0.06);
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  26%,
+  84% {
+    transform: scaleY(1);
+    animation-timing-function: cubic-bezier(0.45, 0, 0.25, 1);
+  }
+  100% {
+    transform: scaleY(0.06);
+  }
+}
+
+/* Switch: track colour and knob travel together; the knob moves by transform, not `left`. */
+@keyframes fasMTrack {
+  0%,
+  16% {
+    background-color: var(--color-gray-300);
+    animation-timing-function: cubic-bezier(0.45, 0, 0.25, 1);
+  }
+  28%,
+  84% {
+    background-color: var(--color-blue-500);
+    animation-timing-function: cubic-bezier(0.45, 0, 0.25, 1);
+  }
+  96%,
+  100% {
+    background-color: var(--color-gray-300);
+  }
+}
+@keyframes fasMKnob {
+  0%,
+  16% {
+    transform: translate3d(0, 0, 0);
+    animation-timing-function: cubic-bezier(0.34, 1.4, 0.64, 1);
+  }
+  28%,
+  84% {
+    transform: translate3d(18px, 0, 0);
+    animation-timing-function: cubic-bezier(0.45, 0, 0.25, 1);
+  }
+  96%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Address typing: a smooth wipe instead of 28 hard steps. */
+@keyframes fasMType {
+  0%,
+  4% {
+    clip-path: inset(0 100% 0 0);
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  36%,
+  86% {
+    clip-path: inset(0 0 0 0);
+    animation-timing-function: ease-in;
+  }
+  100% {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+/* "Live" badge and KPI tiles fade up after the card has landed. */
+@keyframes fasMFade {
+  0%,
+  18% {
+    opacity: 0;
+    transform: translate3d(0, 8px, 0);
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  30%,
+  84% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    animation-timing-function: ease-in-out;
+  }
+  96%,
+  100% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Scan line (QR and phone scenes): travels with transform so it stays smooth. */
+@keyframes fasMScan {
+  0% {
+    transform: translate3d(0, 0, 0);
+    animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1);
+  }
+  100% {
+    transform: translate3d(0, var(--scan-distance, 100px), 0);
+  }
+}
+
+/* Anything animated by these keyframes is promoted to its own layer. */
+.fas-motion {
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}

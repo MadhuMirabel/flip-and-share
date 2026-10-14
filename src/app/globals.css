@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "./keyframes.css";
+@import "./scene-motion.css";
 
 /*
  * Design tokens (README "Design tokens"). Documented in docs/design-system.md.

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Icon } from "@/components/icons";
+import { CookieSettingsButton } from "@/components/site/CookieSettingsButton";
 import { NewsletterForm } from "@/components/site/NewsletterForm";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { FOOTER_COLUMNS, FOOTER_PRODUCTS } from "@/lib/nav";
@@ -50,7 +51,7 @@ export function Footer() {
               alt="FlipAndShare"
               width={185}
               height={30}
-              className="block h-[30px] w-auto brightness-0 invert"
+              className="block h-[30px] w-auto self-start brightness-0 invert"
             />
             <p itemProp="description" className="m-0 max-w-[560px] text-body-sm text-slate-400">
               FlipAndShare turns PDF magazines, catalogs and brochures into interactive, SEO-ready digital editions.
@@ -139,7 +140,8 @@ export function Footer() {
           <nav aria-label="Legal" className="flex flex-wrap gap-[18px]">
             <Link href="/company" className="text-slate-400 hover:text-white">Privacy policy</Link>
             <Link href="/company" className="text-slate-400 hover:text-white">Terms of service</Link>
-            <Link href="/company" className="text-slate-400 hover:text-white">Cookie settings</Link>
+            <Link href="/cookie-policy" className="text-slate-400 hover:text-white">Cookie policy</Link>
+            <CookieSettingsButton className="text-slate-400 hover:text-white">Cookie settings</CookieSettingsButton>
             <Link href="/resources" className="text-slate-400 hover:text-white">Accessibility</Link>
             <Link href="/resources" className="text-slate-400 hover:text-white">Sitemap</Link>
           </nav>

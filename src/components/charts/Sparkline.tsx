@@ -37,8 +37,8 @@ export function Sparkline({
   const h = dark ? 26 : 32;
   const { line, area: areaPath } = sparkPath(values, w, h);
   const showArea = area ?? dark;
-  const reveal = { animation: "fasReveal 1.1s ease-out both", animationDelay: `${delay}s` };
-  const draw = { strokeDasharray: 1200, animation: "fasDraw 1.8s ease-out both", animationDelay: `${delay}s` };
+  const reveal = { animation: "fasReveal 1.3s cubic-bezier(.22,1,.36,1) both", animationDelay: `${delay}s` };
+  const draw = { strokeDasharray: 1200, animation: "fasDraw 2s cubic-bezier(.45,0,.25,1) both", animationDelay: `${delay}s` };
   return (
     <svg
       viewBox={`0 0 ${w} ${h}`}

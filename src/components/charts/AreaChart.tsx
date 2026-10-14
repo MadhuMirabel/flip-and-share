@@ -64,7 +64,7 @@ export function AreaChart({ series, height = 210, max, stagger = 0.3, label, cla
               stroke={s.color}
               strokeWidth={2.5}
               strokeLinecap="round"
-              style={{ strokeDasharray: 1200, animation: "fasDraw 2s ease-out both", animationDelay: delay }}
+              style={{ strokeDasharray: 1200, animation: "fasDraw 2.2s cubic-bezier(.45,0,.25,1) both", animationDelay: delay }}
             />
           </g>
         );
