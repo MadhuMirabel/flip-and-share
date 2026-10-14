@@ -205,6 +205,7 @@ const PADDING = {
   roomy: "pt-[76px] pb-14", // 76 / 56: what's new, solutions
   roomyEven: "pt-[76px] pb-16", // 76 / 64: product
   why: "pt-[72px] pb-16", // 72 / 64: why us
+  feature: "py-14", // 56 / 56: feature detail pages
   overlap: "pt-16 pb-[140px]", // 64 / 140: pricing (tier cards overlap the hero)
 } as const;
 
@@ -219,6 +220,8 @@ const TITLE = {
 
 type PageHeroProps = {
   title: ReactNode;
+  /** Back link or breadcrumb rendered above the eyebrow (feature pages: "← All features"). */
+  above?: ReactNode;
   eyebrow?: ReactNode;
   /** Eyebrow colour class; use `HERO_ACCENT[page]`. Defaults to blue-300. */
   eyebrowColor?: string;
@@ -267,6 +270,7 @@ type PageHeroProps = {
 /** Dark page hero: glow backdrop, accent eyebrow, H1, blue-200 lead and a free slot for CTAs. */
 export function PageHero({
   title,
+  above,
   eyebrow,
   eyebrowColor = "text-blue-300",
   lead,
@@ -299,6 +303,7 @@ export function PageHero({
       className={`relative box-border flex min-w-0 flex-col ${centered ? "items-center text-center" : ""}`}
       style={{ gap, paddingRight: contentWidth ? `max(0px, calc(100% - ${contentWidth}px))` : undefined }}
     >
+      {above}
       {eyebrow != null && (
         <span className={`m-0 font-mono text-eyebrow font-semibold uppercase tracking-eyebrow ${eyebrowColor}`}>{eyebrow}</span>
       )}
