@@ -389,6 +389,14 @@ a:hover > .fas-arrow {
   }
 }
 
+/* Reduced motion: the demo hero shows its finished frame (its loop ends on opacity 0). */
+@media (prefers-reduced-motion: reduce) {
+  [data-demo-scene] * {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+}
+
 /* Reduced motion: honour everywhere, not only the demo hero (README) */
 @media (prefers-reduced-motion: reduce) {
   *,

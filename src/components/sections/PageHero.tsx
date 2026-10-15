@@ -28,6 +28,7 @@ export const HERO_GLOW = {
   enterprise: "rgba(99,102,241,.55)",
   customers: "rgba(245,158,11,.45)",
   examples: "rgba(245,158,11,.45)",
+  demo: "rgba(56,189,248,.5)",
 } as const;
 
 export type HeroPage = keyof typeof HERO_GLOW;
@@ -56,6 +57,7 @@ export const HERO_ACCENT: Record<HeroPage, string> = {
   enterprise: "text-violet-300",
   customers: "text-amber-300",
   examples: "text-amber-300",
+  demo: "text-blue-300",
 };
 
 /** Backdrop pattern used by each page in the prototype (pages not listed use none). */
@@ -207,6 +209,7 @@ const PADDING = {
   why: "pt-[72px] pb-16", // 72 / 64: why us
   feature: "py-14", // 56 / 56: feature detail pages
   overlap: "pt-16 pb-[140px]", // 64 / 140: pricing (tier cards overlap the hero)
+  demo: "pt-16 pb-[120px]", // 64 / 120: book a demo (the form card overlaps the hero)
 } as const;
 
 export type HeroPadding = keyof typeof PADDING;

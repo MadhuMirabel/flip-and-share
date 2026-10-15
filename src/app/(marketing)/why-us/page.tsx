@@ -196,7 +196,7 @@ export default function WhyUsPage() {
           lead="We migrate your archive from Issuu, FlipHTML5, Flipsnack or Joomag for you. Old URLs redirect to the new editions, so links in emails, social posts and search results keep working."
         >
           <div className="mt-1.5">
-            <Button href="/demo" variant="navy" radius="md">
+            <Button href="/demo?topic=migrate" variant="navy" radius="md">
               Plan my migration
             </Button>
           </div>
