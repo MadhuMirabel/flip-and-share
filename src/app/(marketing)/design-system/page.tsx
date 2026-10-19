@@ -87,8 +87,6 @@ const RADII = [
   ["rounded-sm", "6"],
   ["rounded-md", "8"],
   ["rounded-lg", "10"],
-  ["rounded-lg", "12"],
-  ["rounded-lg", "14"],
   ["rounded-full", "full"],
 ];
 
